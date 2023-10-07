@@ -1,0 +1,2 @@
+# Competitive_Coding_Hacktoberfest2023
+series of competitive programming questions
