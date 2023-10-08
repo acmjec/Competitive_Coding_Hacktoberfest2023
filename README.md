@@ -1,7 +1,7 @@
 # Competitive_Coding_Hacktoberfest2023
 series of competitive programming questions<br>
-# what's its about? <br>
-👩‍💻 This repository is for Competitive Coders.<br>
+# what's its about? 
+<br>👩‍💻 This repository is for Competitive Coders.<br>
 📃 We have curated a list of standard problem company-wise for you to get better DSA. <br>
 
 
