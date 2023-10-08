@@ -10,6 +10,7 @@ series of competitive programming questions<br>
 👉 Fork this repository.<br>
 👉 Select a language and add best dsa questions you have solved.<br>
 👉 Create pull-request.<br>
+👉 The problem statement will be provided either in form of text or in word downloadable format.<br>
 
 🚀 Start contributing to this repository by adding your solutions for questions given below.<br>
 We will accept your solution or the best optimise solution.<br>
