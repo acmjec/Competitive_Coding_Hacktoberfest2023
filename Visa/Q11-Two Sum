@@ -92,3 +92,71 @@ int main()
 
     return EXIT_SUCCESS;
 }
+
+SOLUTION:
+
+LANGUAGE - C++
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+pair<int, int> twoSum1(int *arr, int n, int sum)
+{
+    // O(NlogN) time complexity, O(1) Auxilliary Space
+
+    sort(arr, arr + n);
+
+    int s = 0, e = n - 1;
+
+    while (s <= e)
+    {
+        if (arr[s] + arr[e] == sum)
+            return {s, e};
+        else if (arr[s] + arr[e] < sum)
+            s++;
+        else
+            e--;
+    }
+
+    return {-1, -1};
+}
+
+pair<int, int> twoSum2(int *arr, int n, int sum)
+{
+    // O(N) time complexity, O(N) Auxilliary Space
+
+    unordered_map<int, int> m;
+
+    for (int i = 0; i < n; i++)
+    {
+        if (m.find(sum - arr[i]) != m.end())
+            return {m[sum - arr[i]], i};
+        m[arr[i]] = i;
+    }
+
+    return {-1, -1};
+}
+
+int main()
+{
+
+    int n;
+    cin >> n;
+
+    int arr[n];
+
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    int sum;
+    cin >> sum;
+
+    pair<int, int> r1 = twoSum1(arr, n, sum);
+    cout << r1.first << " " << r1.second << "\n";
+
+    r1 = twoSum2(arr, n, sum);
+    cout << r1.first << " " << r1.second << "\n";
+
+    return EXIT_SUCCESS;
+}
