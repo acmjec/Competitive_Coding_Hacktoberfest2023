@@ -8,7 +8,7 @@ series of competitive programming questions<br>
 🐾 Follow these steps to get started<br>
 
 👉 Fork this repository.<br>
-👉 Select a language and add best dsa solution for the given problem.<br>
+👉 Select a language and add best dsa solution for the given problems.<br>
 👉 Create pull-request.<br>
 👉 The problem statement will be provided either in form of text or in word downloadable format.<br>
 
