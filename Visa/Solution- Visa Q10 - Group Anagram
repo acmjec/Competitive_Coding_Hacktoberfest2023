@@ -1,0 +1,58 @@
+// solution in c++
+
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+using namespace std;
+
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    unordered_map<string, vector<string>> anagrams;
+    for (const string& word : strs) {
+        string sortedWord = word;
+        sort(sortedWord.begin(), sortedWord.end());
+        anagrams[sortedWord].push_back(word);
+    }
+    
+    vector<vector<string>> result;
+    for (const auto& entry : anagrams) {
+        result.push_back(entry.second);
+    }
+    
+    return result;
+}
+
+int main() {
+    vector<string> strs1 = {"eat", "tea", "tan", "ate", "nat", "bat"};
+    vector<string> strs2 = {""};
+    vector<string> strs3 = {"a"};
+
+    vector<vector<string>> result1 = groupAnagrams(strs1);
+    vector<vector<string>> result2 = groupAnagrams(strs2);
+    vector<vector<string>> result3 = groupAnagrams(strs3);
+
+    // Print results
+    for (const auto& group : result1) {
+        for (const string& word : group) {
+            cout << word << " ";
+        }
+        cout << endl;
+    }
+
+    for (const auto& group : result2) {
+        for (const string& word : group) {
+            cout << word << " ";
+        }
+        cout << endl;
+    }
+
+    for (const auto& group : result3) {
+        for (const string& word : group) {
+            cout << word << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
