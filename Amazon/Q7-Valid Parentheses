@@ -4,7 +4,6 @@ An input string is valid if:
 Open brackets must be closed by the same type of brackets.
 Open brackets must be closed in the correct order.
 Every close bracket has a corresponding open bracket of the same type.
- 
 
 Example 1:
 Input: s = "()"
@@ -17,7 +16,81 @@ Output: true
 Example 3:
 Input: s = "(]"
 Output: false
- 
+
 Constraints:
 1 <= s.length <= 104
 s consists of parentheses only '()[]{}'
+
+SOLUTION :
+
+    Language - C++
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+bool isclose(char c)
+{
+    return (c == ')' || c == '}' || c == ']');
+}
+bool valid_Parenthese(string s)
+{
+    stack<char> st;
+    map<char, char> m;
+    m['('] = ')';
+    m['{'] = '}';
+    m['['] = ']';
+    for (auto c : s)
+    {
+        if (isclose(c))
+        {
+            if (st.empty())
+                return false;
+            if (m[st.top()] == c)
+            {
+                st.pop();
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            st.push(c);
+        }
+    }
+    return st.empty();
+}
+
+int main()
+{
+
+    string s1 = "()";
+    if (valid_Parenthese(s1))
+    {
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
+    }
+    string s2 = "()[]{}";
+    if (valid_Parenthese(s2))
+    {
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
+    }
+    string s3 = "(]";
+    if (valid_Parenthese(s3))
+    {
+        cout << "true" << endl;
+    }
+    else
+    {
+        cout << "false" << endl;
+    }
+}
