@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+int maxProfit(vector<int>& prices) {
+    int first_buy = INT_MAX;
+    int first_sell = 0;
+    int second_buy = INT_MAX;
+    int second_sell = 0;
+
+    for (int price : prices) {
+        first_buy = min(first_buy, price);
+        first_sell = max(first_sell, price - first_buy);
+        second_buy = min(second_buy, price - first_sell);
+        second_sell = max(second_sell, price - second_buy);
+    }
+
+    return second_sell;
+}
+
+int main() {
+    vector<int> prices1 = {3, 3, 5, 0, 0, 3, 1, 4};
+    cout << maxProfit(prices1) << endl;  // Output: 6
+
+    vector<int> prices2 = {1, 2, 3, 4, 5};
+    cout << maxProfit(prices2) << endl;  // Output: 4
+
+    vector<int> prices3 = {7, 6, 4, 3, 1};
+    cout << maxProfit(prices3) << endl;  // Output: 0
+
+    return 0;
+}
