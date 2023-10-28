@@ -1,0 +1,112 @@
+#include <queue>
+
+int fireInTheCells(vector<vector<int>> &mat, int n, int m, int x, int y) {
+
+    vector<vector<int>> fire(n,vector<int>(m,-1));
+
+    queue<pair<int,pair<int,int>>> q;
+
+    for(int i = 0;i<n;i++){
+
+        for(int j = 0;j<m;j++){
+
+            if(mat[i][j] == 0){
+
+                q.push({0,{i,j}});
+
+                fire[i][j] = 0;
+
+            }
+
+        }
+
+    }
+
+    int drow[4] = {0,0,-1,1};
+
+    int dcol[4] = {-1,1,0,0};
+
+    while(!q.empty()){
+
+        int row = q.front().second.first;
+
+        int col = q.front().second.second;
+
+        int count = q.front().first;
+
+        q.pop();
+
+        for(int i = 0;i<4;i++){
+
+            int nrow = drow[i]+row;
+
+            int ncol = dcol[i]+col;
+
+            if (nrow >= 0 && ncol >= 0 && nrow < n && ncol < m) {
+
+                if(fire[nrow][ncol] == -1){
+
+                    q.push({count+1,{nrow,ncol}});
+
+                    fire[nrow][ncol] = count+1;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+
+
+    if(fire[x][y]==0 && x!=0 && y!=0 && x!=n-1 && y!=m-1) return -1;
+
+    queue<pair<int,pair<int,int>>> q2;
+
+    q2.push({0,{x,y}});
+
+    while(!q2.empty()){
+
+        int xcor = q2.front().second.first;
+
+        int ycor = q2.front().second.second;
+
+        int count = q2.front().first;
+
+        q2.pop();
+
+if((xcor==0 && ycor!=0 && ycor!=m-1) || (xcor==n-1 && ycor!=0 && ycor!=m-1) ||
+
+        (xcor!=0 && ycor==0 && xcor!=n-1) || (xcor!=n-1 && xcor!=0 && ycor==m-1))
+
+        {
+
+            return count;
+
+        }        for(int i = 0;i<4;i++){
+
+            int nrow = drow[i]+xcor;
+
+            int ncol = dcol[i]+ycor;
+
+            if (nrow >= 0 && ncol >= 0 && nrow < n && ncol < m) {
+
+                if(fire[nrow][ncol] > count+1){
+
+                    q2.push({count+1,{nrow,ncol}});
+
+                }
+
+            }         
+
+        }
+
+    }
+
+    return -1;
+
+    // Write your code here.
+
+}
