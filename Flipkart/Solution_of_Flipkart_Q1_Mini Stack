@@ -1,0 +1,54 @@
+//Solution in c++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class MinStack
+{
+public:
+    stack<pair<int, int>> st;
+    MinStack()
+    {
+        return;
+    }
+
+    void push(int val)
+    {
+        if (st.empty())
+        {
+            st.push({val, val});
+        }
+        else
+        {
+            st.push({val, min(val, st.top().second)});
+        }
+    }
+
+    void pop()
+    {
+        st.pop();
+    }
+
+    int top()
+    {
+        return st.top().first;
+    }
+
+    int getMin()
+    {
+        return st.top().second;
+    }
+};
+int main()
+{
+
+    MinStack minStack;
+    minStack.push(-2);
+    minStack.push(0);
+    minStack.push(-3);
+    cout << minStack.getMin() << endl; // return -3
+    minStack.pop();
+    cout << minStack.top() << endl; // return 0
+    cout << minStack.getMin();      // return -2
+    return 0;
+}
