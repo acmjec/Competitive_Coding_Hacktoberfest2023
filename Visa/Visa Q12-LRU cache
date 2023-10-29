@@ -1,0 +1,85 @@
+#include <iostream>
+#include <unordered_map>
+
+using namespace std;
+
+struct Node {
+    int key;
+    int value;
+    Node* prev;
+    Node* next;
+    Node(int k, int v) : key(k), value(v), prev(nullptr), next(nullptr) {}
+};
+
+class LRUCache {
+private:
+    int capacity;
+    unordered_map<int, Node*> cache;
+    Node* head;
+    Node* tail;
+
+    void removeNode(Node* node) {
+        node->prev->next = node->next;
+        node->next->prev = node->prev;
+    }
+
+    void addToFront(Node* node) {
+        node->next = head->next;
+        node->prev = head;
+        head->next->prev = node;
+        head->next = node;
+    }
+
+public:
+    LRUCache(int capacity) : capacity(capacity) {
+        head = new Node(-1, -1);
+        tail = new Node(-1, -1);
+        head->next = tail;
+        tail->prev = head;
+    }
+
+    int get(int key) {
+        if (cache.find(key) != cache.end()) {
+            Node* node = cache[key];
+            removeNode(node);
+            addToFront(node);
+            return node->value;
+        } else {
+            return -1;
+        }
+    }
+
+    void put(int key, int value) {
+        if (cache.find(key) != cache.end()) {
+            Node* node = cache[key];
+            removeNode(node);
+            delete node;
+        }
+
+        if (cache.size() >= capacity) {
+            Node* toRemove = tail->prev;
+            removeNode(toRemove);
+            cache.erase(toRemove->key);
+            delete toRemove;
+        }
+
+        Node* newNode = new Node(key, value);
+        addToFront(newNode);
+        cache[key] = newNode;
+    }
+};
+
+int main() {
+    LRUCache lRUCache(2);
+    lRUCache.put(1, 1);
+    lRUCache.put(2, 2);
+    cout << lRUCache.get(1) << endl;  // Output: 1
+    lRUCache.put(3, 3);
+    cout << lRUCache.get(2) << endl;  // Output: -1
+    lRUCache.put(4, 4);
+    cout << lRUCache.get(1) << endl;  // Output: -1
+    cout << lRUCache.get(3) << endl;  // Output: 3
+    cout << lRUCache.get(4) << endl;  // Output: 4
+
+    return 0;
+}
