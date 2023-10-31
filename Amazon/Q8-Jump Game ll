@@ -18,3 +18,51 @@ Constraints:
 1 <= nums.length <= 104
 0 <= nums[i] <= 1000
 It's guaranteed that you can reach nums[n - 1].
+
+SOLUTION:
+
+Language - C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int rec(vector<int> &nums, int i, vector<int> &dp)
+{
+    if (i == 0)
+        return 0;
+    if (dp[i] != -1)
+        return dp[i];
+    int ans = INT_MAX;
+    for (int j = 0; j < i; j++)
+    {
+        if ((j + nums[j]) >= i)
+        {
+            ans = min(ans, 1 + rec(nums, j, dp));
+        }
+    }
+    return dp[i] = ans;
+}
+int minJump(vector<int> nums)
+{
+    int n = nums.size();
+    vector<int> dp(n, -1);
+    return rec(nums, n - 1, dp);
+}
+int main()
+{
+
+    vector<int> nums;
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        nums.push_back(x);
+    }
+
+    cout << minJump(nums) << endl;
+    ;
+    return 0;
+}
+
