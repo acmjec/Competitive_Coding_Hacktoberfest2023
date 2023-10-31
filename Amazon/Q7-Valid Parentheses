@@ -26,72 +26,34 @@ SOLUTION :
 
     Language - C++
 
-#include <bits/stdc++.h>
-
-using namespace std;
-
-bool isclose(char c)
-{
-    return (c == ')' || c == '}' || c == ']');
-}
-bool valid_Parenthese(string s)
-{
+  bool isValid(string s) {
     stack<char> st;
-    map<char, char> m;
-    m['('] = ')';
-    m['{'] = '}';
-    m['['] = ']';
-    for (auto c : s)
-    {
-        if (isclose(c))
-        {
-            if (st.empty())
-                return false;
-            if (m[st.top()] == c)
-            {
-                st.pop();
-            }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            st.push(c);
-        }
+    int i=0;
+    while(i<s.length())
+    { char ch=s[i];
+      if(st.empty() && (ch==')' || ch=='}' || ch==']')) {
+          return false;
+      }
+      else if(ch=='(' || ch=='{' || ch=='['){
+         st.push(ch);
+      }
+      else if(ch==')' && st.top()=='('){
+         st.pop();
+      }
+      else if(ch=='}' && st.top()=='{'){
+          st.pop();
+      }
+      else if(ch==']' && st.top()=='['){
+          st.pop();
+      }
+      else{
+          return false;
+      }
+      i++;
     }
-    return st.empty();
-}
 
-int main()
-{
-
-    string s1 = "()";
-    if (valid_Parenthese(s1))
-    {
-        cout << "true" << endl;
+    if(st.empty()){
+        return true;
     }
-    else
-    {
-        cout << "false" << endl;
+    return false;
     }
-    string s2 = "()[]{}";
-    if (valid_Parenthese(s2))
-    {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
-    }
-    string s3 = "(]";
-    if (valid_Parenthese(s3))
-    {
-        cout << "true" << endl;
-    }
-    else
-    {
-        cout << "false" << endl;
-    }
-}
